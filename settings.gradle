@@ -1,0 +1,4 @@
+rootProject.name = 'Guestlogix'
+
+include ':demo'
+project(':demo').projectDir = new File(settingsDir, 'app')

@@ -1,0 +1,18 @@
+/*
+ * Copyright (c) 2019 - Present.
+ * Created by VenomVendor on 07-Aug'19.
+ */
+
+package com.venomvendor.guestlogix;
+
+import android.support.v7.app.AppCompatActivity;
+import android.os.Bundle;
+
+public class MainActivity extends AppCompatActivity {
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_main);
+    }
+}
