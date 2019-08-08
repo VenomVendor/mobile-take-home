@@ -1,0 +1,8 @@
+<resources>
+    <string name="app_name">Guestlogix</string>
+    <string name="title_activity_character_detail">CharacterDetailActivity</string>
+    <string name="status">STATUS</string>
+    <string name="species">SPECIES</string>
+    <string name="gender">GENDER</string>
+    <string name="origin">ORIGIN</string>
+</resources>

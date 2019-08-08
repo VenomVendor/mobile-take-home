@@ -1,0 +1,7 @@
+apply plugin: 'com.android.library'
+
+apply from: rootProject.file('./scripts/root.gradle')
+
+dependencies {
+    api project(':core-sdk')
+}

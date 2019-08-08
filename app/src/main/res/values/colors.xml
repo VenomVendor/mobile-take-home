@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="card_title_bg">#000000</color>
+    <color name="label_title">#ff9800</color>
+    <color name="label">@android:color/white</color>
+    <color name="detail_bg">#333</color>
+    <color name="card_title_bg_light">#55494949</color>
+</resources>

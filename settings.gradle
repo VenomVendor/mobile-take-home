@@ -1,0 +1,10 @@
+rootProject.name = 'Guestlogix'
+
+def addModule(def module, def dir) {
+    include module
+    project(module).projectDir = new File(settingsDir, dir)
+}
+
+addModule(':demo', 'app')
+addModule(':core-sdk', 'core')
+addModule(':episode-sdk', 'episode')
