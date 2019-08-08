@@ -1,0 +1,6 @@
+<component name="CopyrightManager">
+  <copyright>
+    <option name="myName" value="General" />
+    <option name="notice" value="#set( &amp;#36;user = &quot;VenomVendor&quot; )&#10;#set( &amp;#36;date-format = &quot;dd-MMM''yy&quot;)&#10;Copyright (c) 2019 - Present.&#10;Created by &amp;#36;user on &amp;#36;today.format(&amp;#36;date-format)." />
+  </copyright>
+</component>

@@ -1,0 +1,82 @@
+def version = [
+        buildTools  : '3.4.2',
+
+        /* CONFIG */
+        apkBuildTool: '29.0.2',
+        minSdk      : 21,
+        compileSdk  : 29,
+        targetSdk   : 29,
+
+        versionCode : 1,
+
+        MAJOR       : 1,
+        MINOR       : 0,
+        PATCH       : 0,
+        SUFFIX      : '',
+
+        // Place holder
+        versionName : 'x.y.z',
+
+        /* UNIT TEST */
+        jUnit       : '4.12',
+]
+
+// Semantic versioning
+version.versionName = "${version.MAJOR}.${version.MINOR}.${version.PATCH}${version.SUFFIX}"
+
+/**
+ * Build
+ */
+def build = [
+        config: [
+                apkBuildTool : version.apkBuildTool,
+                minSdk       : version.minSdk,
+                compileSdk   : version.compileSdk,
+                targetSdk    : version.targetSdk,
+                versionCode  : version.versionCode,
+                versionName  : version.versionName,
+
+                applicationId: 'com.venomvendor.guestlogix'
+        ],
+
+        plugin: [
+                android: "com.android.tools.build:gradle:${version.buildTools}",
+        ]
+]
+
+/**
+ * App Dependencies
+ */
+def app = [
+
+]
+
+def test = [
+        /* jUnit Test */
+        junit  : [
+                jUnit: "junit:junit:${version.jUnit}",
+        ],
+
+        /* Android Test */
+        android: [
+
+        ]
+]
+
+def static addRepos(def handler) {
+    handler.google()
+    handler.jcenter()
+}
+
+ext.deps = [
+        version    : version,
+        buildPlugin: build.plugin,
+        buildConfig: build.config,
+
+        app        : app.main,
+
+        test       : test.junit,
+        androidTest: test.android,
+]
+
+ext.addRepos = this.&addRepos
