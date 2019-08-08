@@ -1,8 +1,11 @@
 package com.venomvendor.guestlogix.episode.model;
 
+import android.os.Parcel;
+import android.os.Parcelable;
+
 import java.util.List;
 
-public class Episode {
+public class Episode implements Parcelable {
 
     private String airDate;
     private List<String> characters;
@@ -80,4 +83,45 @@ public class Episode {
                 ",url = '" + url + '\'' +
                 "}";
     }
+
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    @Override
+    public void writeToParcel(Parcel dest, int flags) {
+        dest.writeString(this.airDate);
+        dest.writeStringList(this.characters);
+        dest.writeString(this.created);
+        dest.writeString(this.name);
+        dest.writeString(this.episode);
+        dest.writeInt(this.id);
+        dest.writeString(this.url);
+    }
+
+    public Episode() {
+    }
+
+    protected Episode(Parcel in) {
+        this.airDate = in.readString();
+        this.characters = in.createStringArrayList();
+        this.created = in.readString();
+        this.name = in.readString();
+        this.episode = in.readString();
+        this.id = in.readInt();
+        this.url = in.readString();
+    }
+
+    public static final Parcelable.Creator<Episode> CREATOR = new Parcelable.Creator<Episode>() {
+        @Override
+        public Episode createFromParcel(Parcel source) {
+            return new Episode(source);
+        }
+
+        @Override
+        public Episode[] newArray(int size) {
+            return new Episode[size];
+        }
+    };
 }
