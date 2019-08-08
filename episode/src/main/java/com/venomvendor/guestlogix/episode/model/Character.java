@@ -1,9 +1,12 @@
 package com.venomvendor.guestlogix.episode.model;
 
+import android.os.Parcel;
+import android.os.Parcelable;
+
 import java.util.Date;
 import java.util.List;
 
-public class Character implements Comparable<Character> {
+public class Character implements Comparable<Character>, Parcelable {
 
     private String image;
     private String gender;
@@ -143,4 +146,56 @@ public class Character implements Comparable<Character> {
         }
         return created.compareTo(other.getCreated());
     }
+
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    @Override
+    public void writeToParcel(Parcel dest, int flags) {
+        dest.writeString(this.image);
+        dest.writeString(this.gender);
+        dest.writeString(this.species);
+        dest.writeLong(this.created != null ? this.created.getTime() : -1);
+        dest.writeParcelable(this.origin, flags);
+        dest.writeString(this.name);
+        dest.writeParcelable(this.location, flags);
+        dest.writeStringList(this.episodes);
+        dest.writeInt(this.id);
+        dest.writeString(this.type);
+        dest.writeString(this.url);
+        dest.writeString(this.status);
+    }
+
+    public Character() {
+    }
+
+    protected Character(Parcel in) {
+        this.image = in.readString();
+        this.gender = in.readString();
+        this.species = in.readString();
+        long tmpCreated = in.readLong();
+        this.created = tmpCreated == -1 ? null : new Date(tmpCreated);
+        this.origin = in.readParcelable(Origin.class.getClassLoader());
+        this.name = in.readString();
+        this.location = in.readParcelable(Location.class.getClassLoader());
+        this.episodes = in.createStringArrayList();
+        this.id = in.readInt();
+        this.type = in.readString();
+        this.url = in.readString();
+        this.status = in.readString();
+    }
+
+    public static final Parcelable.Creator<Character> CREATOR = new Parcelable.Creator<Character>() {
+        @Override
+        public Character createFromParcel(Parcel source) {
+            return new Character(source);
+        }
+
+        @Override
+        public Character[] newArray(int size) {
+            return new Character[size];
+        }
+    };
 }

@@ -5,12 +5,13 @@
     android:layout_height="match_parent"
     tools:context=".MainActivity">
 
-    <ListView
+    <GridView
         android:id="@+id/episode_view"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:footerDividersEnabled="false"
         android:horizontalSpacing="10dp"
+        android:numColumns="2"
         android:padding="1dp"
         android:scrollbars="none"
         android:verticalSpacing="10dp" />

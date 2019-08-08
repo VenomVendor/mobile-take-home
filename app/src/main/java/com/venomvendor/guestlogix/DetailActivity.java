@@ -1,6 +1,6 @@
 /*
  * Copyright (c) 2019 - Present.
- * Created by VenomVendor on 07-Aug'19.
+ * Created by VenomVendor on 08-Aug'19.
  */
 
 package com.venomvendor.guestlogix;
@@ -9,30 +9,37 @@ import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
-import android.widget.ListView;
+import android.widget.GridView;
 import android.widget.ProgressBar;
 import android.widget.Toast;
 
 import com.venomvendor.guestlogix.core.ex.GLException;
 import com.venomvendor.guestlogix.core.factory.AsyncListener;
+import com.venomvendor.guestlogix.episode.model.Character;
 import com.venomvendor.guestlogix.episode.model.Episode;
-import com.venomvendor.guestlogix.episode.viewmodel.EpisodeViewModel;
+import com.venomvendor.guestlogix.episode.viewmodel.CharacterViewModel;
 import com.venomvendor.guestlogix.util.AppConstant;
-import com.venomvendor.guestlogix.view.EpisodeAdapter;
+import com.venomvendor.guestlogix.view.CharacterAdapter;
 
 import java.util.List;
 
-public class MainActivity extends Activity {
+public class DetailActivity extends Activity {
 
-    private ListView mEpisodeView;
-    private EpisodeAdapter mAdapter;
-    private EpisodeViewModel mViewModel;
+    private GridView mEpisodeView;
+    private CharacterAdapter mAdapter;
+    private CharacterViewModel mViewModel;
     private ProgressBar mProgressBar;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
+        setContentView(R.layout.activity_detail);
+
+        Bundle bundle = getIntent().getExtras();
+        if (bundle == null) {
+            finish();
+            return;
+        }
 
         initViews();
 
@@ -40,24 +47,24 @@ public class MainActivity extends Activity {
 
         initModels();
 
-        getData();
+        Episode episode = bundle.getParcelable(AppConstant.KEY_EPISODE);
+        getData(episode);
     }
 
     private void initViews() {
         mEpisodeView = findViewById(R.id.episode_view);
         mProgressBar = findViewById(R.id.progress_bar);
-        mAdapter = new EpisodeAdapter(getApplicationContext());
+        mAdapter = new CharacterAdapter(getApplicationContext());
         mEpisodeView.setAdapter(mAdapter);
     }
 
     private void initListeners() {
         mEpisodeView.setOnItemClickListener((parent, view, position, id) -> {
-            Episode episode = (Episode) parent.getItemAtPosition(position);
-            System.out.println(episode);
+            Character character = (Character) parent.getItemAtPosition(position);
 
-            Intent intent = new Intent(MainActivity.this, DetailActivity.class);
+            Intent intent = new Intent(DetailActivity.this, CharacterDetailActivity.class);
             Bundle bundle = new Bundle();
-            bundle.putParcelable(AppConstant.KEY_EPISODE, episode);
+            bundle.putParcelable(AppConstant.KEY_CHARACTER, character);
             intent.putExtras(bundle);
 
             startActivity(intent);
@@ -65,27 +72,28 @@ public class MainActivity extends Activity {
     }
 
     private void initModels() {
-        mViewModel = new EpisodeViewModel();
+        mViewModel = new CharacterViewModel();
     }
 
-    private void getData() {
+    private void getData(Episode episode) {
         mProgressBar.setVisibility(View.VISIBLE);
-        mViewModel.getEpisodes(new AsyncListener<List<Episode>>() {
+        mViewModel.getCharacters(episode, new AsyncListener<List<Character>>() {
             @Override
-            public void onResponse(List<Episode> response) {
+            public void onResponse(List<Character> response) {
                 displayData(response);
+
                 mProgressBar.setVisibility(View.GONE);
             }
 
             @Override
             public void onError(GLException ex) {
-                Toast.makeText(MainActivity.this, ex.getMessage(), Toast.LENGTH_SHORT).show();
+                Toast.makeText(DetailActivity.this, ex.getMessage(), Toast.LENGTH_SHORT).show();
                 mProgressBar.setVisibility(View.GONE);
             }
         });
     }
 
-    private void displayData(List<Episode> response) {
+    private void displayData(List<Character> response) {
         mAdapter.setData(response);
     }
 }
