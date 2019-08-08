@@ -5,6 +5,8 @@
 
 package com.venomvendor.guestlogix.core;
 
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.util.Pair;
 
 import com.venomvendor.guestlogix.core.ex.GLException;
@@ -17,6 +19,7 @@ import org.json.JSONException;
 
 import java.io.BufferedReader;
 import java.io.IOException;
+import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.UnsupportedEncodingException;
 import java.net.HttpURLConnection;
@@ -148,6 +151,33 @@ public final class NetworkManager {
             }
 
             Pair<T, GLException> result = Pair.create(data, glException);
+            CoreHelper.dispatchMessage(listener, result);
+        });
+    }
+
+    private Bitmap getBitmap(String imageUrl) throws IOException {
+        URL url = new URL(imageUrl);
+        HttpURLConnection connection = (HttpURLConnection) url.openConnection();
+        connection.setDoInput(true);
+        connection.setFollowRedirects(true);
+        connection.connect();
+        InputStream input = connection.getInputStream();
+        return BitmapFactory.decodeStream(input);
+    }
+
+    public void getBitmapFromURL(String imageUrl, AsyncListener<Bitmap> listener) {
+        Objects.requireNonNull(imageUrl, "Image Url cannot be null");
+        ThreadPoolManager.dispatch(() -> {
+            Bitmap data = null;
+            GLException glException = null;
+            try {
+                data = getBitmap(imageUrl);
+                Objects.requireNonNull(data, "Null Response Recieved");
+            } catch (IOException | NullPointerException ex) {
+                glException = CoreHelper.getException(ex);
+            }
+
+            Pair<Bitmap, GLException> result = Pair.create(data, glException);
             CoreHelper.dispatchMessage(listener, result);
         });
     }

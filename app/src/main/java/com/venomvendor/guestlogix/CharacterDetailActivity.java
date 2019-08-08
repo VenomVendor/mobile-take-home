@@ -6,12 +6,16 @@
 package com.venomvendor.guestlogix;
 
 import android.app.Activity;
+import android.graphics.Bitmap;
 import android.os.Bundle;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.venomvendor.guestlogix.core.ex.GLException;
+import com.venomvendor.guestlogix.core.factory.AsyncListener;
 import com.venomvendor.guestlogix.episode.model.Character;
 import com.venomvendor.guestlogix.util.AppConstant;
+import com.venomvendor.guestlogix.util.ImageHelper;
 
 public class CharacterDetailActivity extends Activity {
 
@@ -35,8 +39,8 @@ public class CharacterDetailActivity extends Activity {
 
         initViews();
 
-        Character episode = bundle.getParcelable(AppConstant.KEY_CHARACTER);
-        setData(episode);
+        Character character = bundle.getParcelable(AppConstant.KEY_CHARACTER);
+        setData(character);
     }
 
     private void initViews() {
@@ -49,12 +53,24 @@ public class CharacterDetailActivity extends Activity {
         origin = findViewById(R.id.origin);
     }
 
-    private void setData(Character episode) {
-        name.setText(episode.getName());
-        id.setText(String.valueOf(episode.getId()));
-        status.setText(episode.getStatus());
-        species.setText(episode.getSpecies());
-        gender.setText(episode.getGender());
-        origin.setText(episode.getOrigin().getName());
+    private void setData(Character character) {
+        name.setText(character.getName());
+        id.setText(String.valueOf(character.getId()));
+        status.setText(character.getStatus());
+        species.setText(character.getSpecies());
+        gender.setText(character.getGender());
+        origin.setText(character.getOrigin().getName());
+
+        ImageHelper.getImage(character.getImage(), new AsyncListener<Bitmap>() {
+            @Override
+            public void onResponse(Bitmap response) {
+                dp.setImageBitmap(response);
+            }
+
+            @Override
+            public void onError(GLException ex) {
+
+            }
+        });
     }
 }

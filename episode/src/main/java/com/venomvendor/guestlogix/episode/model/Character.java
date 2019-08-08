@@ -20,6 +20,7 @@ public class Character implements Comparable<Character>, Parcelable {
     private String type;
     private String url;
     private String status;
+    private String color;
 
     public String getImage() {
         return image;
@@ -120,23 +121,12 @@ public class Character implements Comparable<Character>, Parcelable {
         this.status = status;
     }
 
-    @Override
-    public String toString() {
-        return
-                "Character{" +
-                        "image = '" + image + '\'' +
-                        ",gender = '" + gender + '\'' +
-                        ",species = '" + species + '\'' +
-                        ",created = '" + created + '\'' +
-                        ",origin = '" + origin + '\'' +
-                        ",name = '" + name + '\'' +
-                        ",location = '" + location + '\'' +
-                        ",episode = '" + episodes + '\'' +
-                        ",id = '" + id + '\'' +
-                        ",type = '" + type + '\'' +
-                        ",url = '" + url + '\'' +
-                        ",status = '" + status + '\'' +
-                        "}";
+    public String getColor() {
+        return color;
+    }
+
+    public void setColor(String color) {
+        this.color = color;
     }
 
     @Override
@@ -145,6 +135,25 @@ public class Character implements Comparable<Character>, Parcelable {
             return 0;
         }
         return created.compareTo(other.getCreated());
+    }
+
+    @Override
+    public String toString() {
+        return "Character{" +
+                "image='" + image + '\'' +
+                ", gender='" + gender + '\'' +
+                ", species='" + species + '\'' +
+                ", created=" + created +
+                ", origin=" + origin +
+                ", name='" + name + '\'' +
+                ", location=" + location +
+                ", episodes=" + episodes +
+                ", id=" + id +
+                ", type='" + type + '\'' +
+                ", url='" + url + '\'' +
+                ", status='" + status + '\'' +
+                ", color='" + color + '\'' +
+                '}';
     }
 
     @Override
@@ -166,6 +175,7 @@ public class Character implements Comparable<Character>, Parcelable {
         dest.writeString(this.type);
         dest.writeString(this.url);
         dest.writeString(this.status);
+        dest.writeString(this.color);
     }
 
     public Character() {
@@ -185,9 +195,10 @@ public class Character implements Comparable<Character>, Parcelable {
         this.type = in.readString();
         this.url = in.readString();
         this.status = in.readString();
+        this.color = in.readString();
     }
 
-    public static final Parcelable.Creator<Character> CREATOR = new Parcelable.Creator<Character>() {
+    public static final Creator<Character> CREATOR = new Creator<Character>() {
         @Override
         public Character createFromParcel(Parcel source) {
             return new Character(source);

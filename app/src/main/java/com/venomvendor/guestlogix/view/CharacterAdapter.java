@@ -6,6 +6,7 @@
 package com.venomvendor.guestlogix.view;
 
 import android.content.Context;
+import android.graphics.Bitmap;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -14,7 +15,10 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.venomvendor.guestlogix.R;
+import com.venomvendor.guestlogix.core.ex.GLException;
+import com.venomvendor.guestlogix.core.factory.AsyncListener;
 import com.venomvendor.guestlogix.episode.model.Character;
+import com.venomvendor.guestlogix.util.ImageHelper;
 
 import java.util.List;
 import java.util.Locale;
@@ -72,7 +76,7 @@ public class CharacterAdapter extends BaseAdapter {
             /*
              * Inflate Custom List View
              */
-            mView = inflater.inflate(R.layout.custom_episode_view, parent, false);
+            mView = inflater.inflate(R.layout.custom_character_view, parent, false);
             holder.name = mView.findViewById(R.id.name);
             holder.id = mView.findViewById(R.id.id);
             holder.dp = mView.findViewById(R.id.dp);
@@ -95,6 +99,18 @@ public class CharacterAdapter extends BaseAdapter {
                 String.format(Locale.getDefault(), "%d : %s : %s", character.getId(),
                         character.getName(), character.getStatus())
         );
+
+        ImageHelper.getImage(character.getImage(), new AsyncListener<Bitmap>() {
+            @Override
+            public void onResponse(Bitmap response) {
+                holder.dp.setImageBitmap(response);
+            }
+
+            @Override
+            public void onError(GLException ex) {
+
+            }
+        });
     }
 
     private class ViewHolder {
