@@ -10,8 +10,8 @@ import android.os.Looper;
 import android.os.Message;
 import android.util.Pair;
 
-import com.venomvendor.guestlogix.core.factory.AsyncListener;
 import com.venomvendor.guestlogix.core.ex.GLException;
+import com.venomvendor.guestlogix.core.factory.AsyncListener;
 import com.venomvendor.guestlogix.core.internal.NetworkHandler;
 
 import java.util.Objects;

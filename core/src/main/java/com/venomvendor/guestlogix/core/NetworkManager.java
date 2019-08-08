@@ -3,7 +3,7 @@
  * Created by VenomVendor on 07-Aug'19.
  */
 
-package com.venomvendor.guestlogix.core.util;
+package com.venomvendor.guestlogix.core;
 
 import android.util.Pair;
 
@@ -11,14 +11,23 @@ import com.venomvendor.guestlogix.core.ex.GLException;
 import com.venomvendor.guestlogix.core.factory.AsyncListener;
 import com.venomvendor.guestlogix.core.factory.Request;
 import com.venomvendor.guestlogix.core.internal.ThreadPoolManager;
+import com.venomvendor.guestlogix.core.util.CoreHelper;
 
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.io.UnsupportedEncodingException;
 import java.net.HttpURLConnection;
 import java.net.URL;
+import java.net.URLEncoder;
+import java.nio.charset.StandardCharsets;
+import java.util.Map;
 import java.util.Objects;
+import java.util.Set;
 
+/**
+ * Network Manager to handle all newtork operations.
+ */
 @SuppressWarnings("ALL")
 public final class NetworkManager {
 
@@ -32,36 +41,26 @@ public final class NetworkManager {
         return INSTANCE;
     }
 
-    public <T> void execute(Request<T> request, AsyncListener<T> listener) {
-        Objects.requireNonNull(request, "Request cannot be null");
-        Objects.requireNonNull(listener, "Listener cannot be null");
-
-        ThreadPoolManager.dispatch(() -> {
-            T data = null;
-            GLException glException = null;
-            try {
-                String response = getResponse(request);
-                data = (T) request.getData(response);
-            } catch (IOException ex) {
-                glException = CoreHelper.getException(ex);
-            }
-
-            Pair<T, GLException> result = Pair.create(data, glException);
-            CoreHelper.dispatchMessage(listener, result);
-        });
-    }
-
     /**
      * Returns the output from the given URL.
      *
      * @param request Request to be executed.
      * @return response in form of string.
      */
-    private String getResponse(Request request) throws IOException {
-        String encodeUrl = request.getUrl();
-        URL url = new URL(encodeUrl);
+    private static String getResponse(Request request) throws IOException {
+        // Get Url
+        String reqUrl = request.getUrl();
 
+        // Get query params
+        Map<String, String> query = request.getQuery();
+
+        // Create full Url
+        String fullUrl = getFormattedUrl(reqUrl, query);
+
+        // Create url
+        URL url = new URL(reqUrl);
         BufferedReader reader = null;
+
         try {
             // Http(s)URLConnection
             HttpURLConnection connection = (HttpURLConnection) url.openConnection();
@@ -99,5 +98,54 @@ public final class NetworkManager {
                 }
             }
         }
+    }
+
+    private static String getFormattedUrl(String reqUrl, Map<String, String> query)
+            throws UnsupportedEncodingException {
+        if (query == null || query.isEmpty()) {
+            return reqUrl;
+        }
+
+        Set<Map.Entry<String, String>> entries = query.entrySet();
+        StringBuilder encodedParams = new StringBuilder(reqUrl).append('?');
+        for (Map.Entry<String, String> entry : entries) {
+            String key = entry.getKey();
+            Object value = entry.getValue();
+            encodedParams.append(URLEncoder.encode(key, StandardCharsets.UTF_8.toString()))
+                    // Appending char is faster than String
+                    .append('=')
+                    .append(URLEncoder.encode(value.toString(), StandardCharsets.UTF_8.toString()))
+                    // Appending char is faster than String
+                    .append('&');
+        }
+        encodedParams.deleteCharAt(encodedParams.length() - 1);
+
+        return encodedParams.toString();
+    }
+
+    /**
+     * Execute network requests in background.
+     *
+     * @param request  Request to be executed.
+     * @param listener Callback to be used to dispatch result.
+     * @param <T>      Type of data.
+     */
+    public <T> void execute(Request<T> request, AsyncListener<T> listener) {
+        Objects.requireNonNull(request, "Request cannot be null");
+        Objects.requireNonNull(listener, "Listener cannot be null");
+
+        ThreadPoolManager.dispatch(() -> {
+            T data = null;
+            GLException glException = null;
+            try {
+                String response = getResponse(request);
+                data = (T) request.getData(response);
+            } catch (IOException ex) {
+                glException = CoreHelper.getException(ex);
+            }
+
+            Pair<T, GLException> result = Pair.create(data, glException);
+            CoreHelper.dispatchMessage(listener, result);
+        });
     }
 }

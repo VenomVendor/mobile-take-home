@@ -5,6 +5,8 @@
 
 package com.venomvendor.guestlogix.core.factory;
 
+import java.util.Map;
+
 /**
  * Request params for any given request.
  *
@@ -37,6 +39,20 @@ public interface Request<T> {
      * @return T required data
      */
     T getData(String response);
+
+    /**
+     * Get Query for Get Requests
+     *
+     * @return Map of query params
+     */
+    Map<String, String> getQuery();
+
+    /**
+     * Get Body for
+     *
+     * @return body if request is not GET
+     */
+    byte[] getBody();
 
     /**
      * List of supported Request types.
