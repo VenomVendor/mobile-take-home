@@ -7,3 +7,4 @@ def addModule(def module, def dir) {
 
 addModule(':demo', 'app')
 addModule(':core-sdk', 'core')
+addModule(':episode-sdk', 'episode')

@@ -5,9 +5,9 @@ Applicant Coding Challenge
 
 # Notes
 - Code is separated into multiple modules
-    - core
-    - episodes
-    - app(Demo)
+    - core-sdk
+    - episode-sdk
+    - demo
 - To Test
     - `./gradlew clean testDebugUnitTest`
 
@@ -42,7 +42,8 @@ Applicant Coding Challenge
 ### What is the test?
 * Build a mobile application that displays a list of Rick and Morty episodes. 
 * On click of an episode, display a list characters in that episode.
-* Split list into dead or alive (you're free to decide how to implement this split)* Sort the list in the order of creation date.
+* Split list into dead or alive (you're free to decide how to implement this split)
+* Sort the list in the order of creation date.
 * On click of a character, display detail page showing the character's picture and other informations.
 * Bonus points (not mandatory) -> Add functionality to kill a character.
    *  Feel free to impress us with your out of the box thinking. Hint: To kill a character swipe, CTA, long press etc.
@@ -60,4 +61,4 @@ The application cab be done in **Java** (No Kotlin). Otherwise, you have complet
 Note however, that **no third party libraries may be used**. You can use any native tools available to you from the platform, but no open sourced, or third party libraries.
 
 ### Project's API
-https://rickandmortyapi.com/
+<https://rickandmortyapi.com/>

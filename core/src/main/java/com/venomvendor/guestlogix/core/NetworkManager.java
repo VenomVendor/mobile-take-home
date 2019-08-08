@@ -13,6 +13,8 @@ import com.venomvendor.guestlogix.core.factory.Request;
 import com.venomvendor.guestlogix.core.internal.ThreadPoolManager;
 import com.venomvendor.guestlogix.core.util.CoreHelper;
 
+import org.json.JSONException;
+
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
@@ -139,8 +141,9 @@ public final class NetworkManager {
             GLException glException = null;
             try {
                 String response = getResponse(request);
+                Objects.requireNonNull(response, "Null Response Recieved");
                 data = (T) request.getData(response);
-            } catch (IOException ex) {
+            } catch (IOException | NullPointerException | JSONException ex) {
                 glException = CoreHelper.getException(ex);
             }
 

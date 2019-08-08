@@ -5,6 +5,8 @@
 
 package com.venomvendor.guestlogix.core.factory;
 
+import org.json.JSONException;
+
 import java.util.Map;
 
 /**
@@ -13,6 +15,8 @@ import java.util.Map;
  * @param <T> Type of response
  */
 public interface Request<T> {
+
+    int TIMEOUT = 10_000;
 
     /**
      * Generates full URL for the request
@@ -38,7 +42,7 @@ public interface Request<T> {
      *
      * @return T required data
      */
-    T getData(String response);
+    T getData(String response) throws JSONException;
 
     /**
      * Get Query for Get Requests
