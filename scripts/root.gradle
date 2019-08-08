@@ -1,0 +1,59 @@
+android {
+    compileSdkVersion deps.buildConfig.compileSdk
+    buildToolsVersion deps.buildConfig.apkBuildTool
+
+    defaultConfig {
+        minSdkVersion deps.buildConfig.minSdk
+        targetSdkVersion deps.buildConfig.targetSdk
+        versionCode deps.buildConfig.versionCode
+        versionName deps.buildConfig.versionName
+    }
+    buildTypes {
+        release {
+            minifyEnabled true
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+        }
+
+        debug {
+            testCoverageEnabled Boolean.valueOf(project.findProperty('enableCodeCoverage'))
+        }
+    }
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
+    }
+    lintOptions {
+        abortOnError false
+    }
+    testOptions {
+        animationsDisabled = true
+        unitTests {
+            all {
+                testLogging {
+                    exceptionFormat = 'full'
+                    events 'passed', 'skipped', 'failed', 'standardOut', 'standardError'
+                }
+            }
+            returnDefaultValues = true
+            includeAndroidResources = true
+        }
+    }
+    sourceSets {
+        debug {
+            java {
+                srcDir 'src/debug/java'
+            }
+        }
+        test {
+            resources.srcDirs += ['src/test/resources']
+        }
+    }
+}
+
+/*
+ * Test Dependencies
+ */
+dependencies {
+    // Unit
+    testImplementation deps.test.jUnit
+}
