@@ -5,9 +5,9 @@ Applicant Coding Challenge
 
 # Notes
 - Code is separated into multiple modules
-    - core
-    - episodes
-    - app(Demo)
+    - core-sdk
+    - episode-sdk
+    - demo
 - To Test
     - `./gradlew clean testDebugUnitTest`
 
@@ -60,4 +60,4 @@ The application cab be done in **Java** (No Kotlin). Otherwise, you have complet
 Note however, that **no third party libraries may be used**. You can use any native tools available to you from the platform, but no open sourced, or third party libraries.
 
 ### Project's API
-https://rickandmortyapi.com/
+<https://rickandmortyapi.com/>
