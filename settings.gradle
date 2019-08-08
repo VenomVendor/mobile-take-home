@@ -1,4 +1,9 @@
 rootProject.name = 'Guestlogix'
 
-include ':demo'
-project(':demo').projectDir = new File(settingsDir, 'app')
+def addModule(def module, def dir) {
+    include module
+    project(module).projectDir = new File(settingsDir, dir)
+}
+
+addModule(':demo', 'app')
+addModule(':core-sdk', 'core')
