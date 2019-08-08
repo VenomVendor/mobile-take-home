@@ -53,7 +53,6 @@ public class MainActivity extends Activity {
     private void initListeners() {
         mEpisodeView.setOnItemClickListener((parent, view, position, id) -> {
             Episode episode = (Episode) parent.getItemAtPosition(position);
-            System.out.println(episode);
 
             Intent intent = new Intent(MainActivity.this, DetailActivity.class);
             Bundle bundle = new Bundle();
