@@ -27,7 +27,7 @@ public final class EpisodeHandler implements EpisodeManager {
     }
 
     @Override
-    public void getCharacters(int[] characters, AsyncListener<List<Character>> listener) {
+    public void getCharacters(String[] characters, AsyncListener<List<Character>> listener) {
         NetworkManager.getInstance()
                 .execute(new CharacterRequest(characters), listener);
     }

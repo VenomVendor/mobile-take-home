@@ -17,6 +17,9 @@ import java.util.List;
  */
 public interface EpisodeManager {
 
+    /**
+     * Syntatic Sugar
+     */
     static EpisodeManager getManager() {
         return new EpisodeHandler();
     }
@@ -29,5 +32,5 @@ public interface EpisodeManager {
     /**
      * Returns List of Characters
      */
-    void getCharacters(int[] characters, AsyncListener<List<Character>> listener);
+    void getCharacters(String[] characters, AsyncListener<List<Character>> listener);
 }

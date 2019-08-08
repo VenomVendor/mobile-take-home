@@ -55,7 +55,7 @@ public class EpisodeRequest extends BaseRequest<EpisodeRes> {
         int length = results.length();
 
         List<Episode> episodes = new ArrayList<>(length);
-        for (int i = 0; i < length; i++) {
+        for (int i = 0; i < length; ++i) {
             Episode episode = new Episode();
             JSONObject epi = (JSONObject) results.get(i);
 
@@ -70,7 +70,7 @@ public class EpisodeRequest extends BaseRequest<EpisodeRes> {
             int locSize = locations.length();
 
             List<String> characters = new ArrayList<>(locSize);
-            for (int j = 0; j < locSize; j++) {
+            for (int j = 0; j < locSize; ++j) {
                 characters.add(locations.getString(j));
             }
 

@@ -1,13 +1,14 @@
 package com.venomvendor.guestlogix.episode.model;
 
+import java.util.Date;
 import java.util.List;
 
-public class Character {
+public class Character implements Comparable<Character> {
 
     private String image;
     private String gender;
     private String species;
-    private String created;
+    private Date created;
     private Origin origin;
     private String name;
     private Location location;
@@ -41,11 +42,11 @@ public class Character {
         this.species = species;
     }
 
-    public String getCreated() {
+    public Date getCreated() {
         return created;
     }
 
-    public void setCreated(String created) {
+    public void setCreated(Date created) {
         this.created = created;
     }
 
@@ -106,7 +107,10 @@ public class Character {
     }
 
     public String getStatus() {
-        return status;
+        if (status == null) {
+            return "";
+        }
+        return status.toLowerCase();
     }
 
     public void setStatus(String status) {
@@ -130,5 +134,13 @@ public class Character {
                         ",url = '" + url + '\'' +
                         ",status = '" + status + '\'' +
                         "}";
+    }
+
+    @Override
+    public int compareTo(Character other) {
+        if (created == null) {
+            return 0;
+        }
+        return created.compareTo(other.getCreated());
     }
 }
