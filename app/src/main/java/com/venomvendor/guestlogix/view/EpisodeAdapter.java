@@ -95,6 +95,7 @@ public class EpisodeAdapter extends BaseAdapter {
                 String.format(Locale.getDefault(), "%d : %s : %s", episode.getId(),
                         episode.getName(), episode.getAirDate())
         );
+
     }
 
     private class ViewHolder {

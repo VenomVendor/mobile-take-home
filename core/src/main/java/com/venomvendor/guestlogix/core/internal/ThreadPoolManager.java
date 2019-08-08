@@ -13,7 +13,7 @@ import java.util.concurrent.Executors;
  */
 public final class ThreadPoolManager {
 
-    private static final int MAX_REQUEST = 5;
+    private static final int MAX_REQUEST = 10;
     private static final ExecutorService executor = Executors.newFixedThreadPool(MAX_REQUEST);
 
     public static void dispatch(Runnable command) {

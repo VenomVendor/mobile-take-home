@@ -55,12 +55,15 @@ public class CharacterViewModel {
                     for (Character character : in) {
                         switch (character.getStatus()) {
                             case "alive":
+                                character.setColor("#FF0000");
                                 alive.add(character);
                                 break;
                             case "dead":
+                                character.setColor("#FFFF000");
                                 dead.add(character);
                                 break;
                             default:
+                                character.setColor("#000000");
                                 unknown.add(character);
                                 break;
                         }
