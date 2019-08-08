@@ -60,7 +60,13 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:background="@color/detail_bg"
             android:orientation="vertical">
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="2dp"
+                android:background="@android:color/white" />
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -74,7 +80,8 @@
                     android:layout_rowWeight="1"
                     android:layout_weight="1"
                     android:gravity="start"
-                    android:text="@string/status" />
+                    android:text="@string/status"
+                    android:textColor="@color/label" />
 
                 <TextView
                     android:id="@+id/status"
@@ -83,9 +90,15 @@
                     android:layout_rowWeight="1"
                     android:layout_weight="2"
                     android:gravity="end"
-                    android:text="@string/app_name" />
+                    android:text="@string/app_name"
+                    android:textColor="@color/label_title" />
 
             </LinearLayout>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="2dp"
+                android:background="@android:color/white" />
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -99,7 +112,8 @@
                     android:layout_rowWeight="1"
                     android:layout_weight="1"
                     android:gravity="start"
-                    android:text="@string/species" />
+                    android:text="@string/species"
+                    android:textColor="@color/label" />
 
                 <TextView
                     android:id="@+id/species"
@@ -108,9 +122,15 @@
                     android:layout_rowWeight="1"
                     android:layout_weight="2"
                     android:gravity="end"
-                    android:text="@string/app_name" />
+                    android:text="@string/app_name"
+                    android:textColor="@color/label_title" />
 
             </LinearLayout>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="2dp"
+                android:background="@android:color/white" />
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -124,7 +144,8 @@
                     android:layout_rowWeight="1"
                     android:layout_weight="1"
                     android:gravity="start"
-                    android:text="@string/gender" />
+                    android:text="@string/gender"
+                    android:textColor="@color/label" />
 
                 <TextView
                     android:id="@+id/gender"
@@ -133,9 +154,15 @@
                     android:layout_rowWeight="1"
                     android:layout_weight="2"
                     android:gravity="end"
-                    android:text="@string/app_name" />
+                    android:text="@string/app_name"
+                    android:textColor="@color/label_title" />
 
             </LinearLayout>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="2dp"
+                android:background="@android:color/white" />
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -149,7 +176,8 @@
                     android:layout_rowWeight="1"
                     android:layout_weight="1"
                     android:gravity="start"
-                    android:text="@string/origin" />
+                    android:text="@string/origin"
+                    android:textColor="@color/label" />
 
                 <TextView
                     android:id="@+id/origin"
@@ -158,7 +186,8 @@
                     android:layout_rowWeight="1"
                     android:layout_weight="2"
                     android:gravity="end"
-                    android:text="@string/app_name" />
+                    android:text="@string/app_name"
+                    android:textColor="@color/label_title" />
 
             </LinearLayout>
 

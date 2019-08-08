@@ -87,21 +87,5 @@ public class MainActivity extends Activity {
 
     private void displayData(List<Episode> response) {
         mAdapter.setData(response);
-
-//        mAdapter.notifyDataSetChanged();
-//
-//        new CharacterViewModel()
-//                .getCharacters(response.get(0),
-//                        new AsyncListener<List<Character>>() {
-//                            @Override
-//                            public void onResponse(List<Character> response) {
-//                                System.out.println(response);
-//                            }
-//
-//                            @Override
-//                            public void onError(GLException ex) {
-//                                System.out.println(ex.getMessage());
-//                            }
-//                        });
     }
 }
