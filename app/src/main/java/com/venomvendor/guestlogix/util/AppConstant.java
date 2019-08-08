@@ -5,6 +5,9 @@
 
 package com.venomvendor.guestlogix.util;
 
+/**
+ * Constants across app
+ */
 public final class AppConstant {
 
     public static final String KEY_EPISODE = "episode";

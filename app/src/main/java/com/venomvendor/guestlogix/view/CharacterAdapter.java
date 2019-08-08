@@ -63,19 +63,15 @@ public class CharacterAdapter extends BaseAdapter {
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
         View mView = convertView;
-
         ViewHolder holder;
+
         if (mView == null) {
             holder = new ViewHolder();
-            /*
-             * LayoutInflater
-             */
-            LayoutInflater inflater = (LayoutInflater) mContext.getSystemService(
-                    Context.LAYOUT_INFLATER_SERVICE);
+            // LayoutInflater
+            LayoutInflater inflater =
+                    (LayoutInflater) mContext.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
 
-            /*
-             * Inflate Custom List View
-             */
+            // Inflate Custom List View
             mView = inflater.inflate(R.layout.custom_character_view, parent, false);
             holder.name = mView.findViewById(R.id.name);
             holder.id = mView.findViewById(R.id.id);

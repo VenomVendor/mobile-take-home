@@ -10,7 +10,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
-import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.venomvendor.guestlogix.R;
@@ -63,19 +62,15 @@ public class EpisodeAdapter extends BaseAdapter {
         ViewHolder holder;
         if (mView == null) {
             holder = new ViewHolder();
-            /*
-             * LayoutInflater
-             */
-            LayoutInflater inflater = (LayoutInflater) mContext.getSystemService(
-                    Context.LAYOUT_INFLATER_SERVICE);
 
-            /*
-             * Inflate Custom List View
-             */
+            // LayoutInflater
+            LayoutInflater inflater = (LayoutInflater)
+                    mContext.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+
+            // Inflate Custom List View
             mView = inflater.inflate(R.layout.custom_episode_view, parent, false);
             holder.name = mView.findViewById(R.id.name);
             holder.id = mView.findViewById(R.id.id);
-            holder.dp = mView.findViewById(R.id.dp);
 
             mView.setTag(holder);
         } else {
@@ -95,13 +90,11 @@ public class EpisodeAdapter extends BaseAdapter {
                 String.format(Locale.getDefault(), "%d : %s : %s", episode.getId(),
                         episode.getName(), episode.getAirDate())
         );
-
     }
 
     private class ViewHolder {
 
         private TextView name;
         private TextView id;
-        private ImageView dp;
     }
 }
