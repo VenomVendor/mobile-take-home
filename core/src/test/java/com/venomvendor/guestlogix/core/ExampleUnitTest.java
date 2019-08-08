@@ -3,7 +3,7 @@
  * Created by VenomVendor on 07-Aug'19.
  */
 
-package com.venomvendor.guestlogix;
+package com.venomvendor.guestlogix.core;
 
 import org.junit.Test;
 

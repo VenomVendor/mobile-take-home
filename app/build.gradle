@@ -3,3 +3,7 @@ apply plugin: 'com.android.application'
 apply from: rootProject.file('./scripts/root.gradle')
 
 android.defaultConfig.applicationId deps.buildConfig.applicationId
+
+dependencies {
+    implementation project(':core-sdk')
+}
